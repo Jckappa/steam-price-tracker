@@ -1,0 +1,15 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets & local config
+.env
+
+# GCP credentials (กันพลาด ถึงจะใช้ ADC ก็ตาม)
+*.json
+!config/*.json
+
+# OS / editor
+.DS_Store
+.vscode/
