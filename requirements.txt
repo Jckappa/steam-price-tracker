@@ -1,5 +1,7 @@
 # Call API 
-requests>=2.31.0
+requests==2.34.2
 
 # Load environment variables from .env
-python-dotenv>=1.0.0
+python-dotenv==1.2.2
+
+google-cloud-bigquery==3.42.2
