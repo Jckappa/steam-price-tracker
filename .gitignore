@@ -8,7 +8,7 @@ __pycache__/
 
 # GCP credentials (กันพลาด ถึงจะใช้ ADC ก็ตาม)
 *.json
-!config/*.json
+!config/**/*.json
 
 # OS / editor
 .DS_Store

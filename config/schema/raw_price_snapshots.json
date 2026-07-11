@@ -1,0 +1,14 @@
+[
+  {"name": "steam_appid", "type": "INTEGER", "mode": "REQUIRED", "description": "Steam application id"},
+  {"name": "game_name", "type": "STRING", "mode": "NULLABLE", "description": "Game name as returned by the API"},
+  {"name": "country_code", "type": "STRING", "mode": "REQUIRED", "description": "Region code we requested (th/us)"},
+  {"name": "snapshot_date", "type": "DATE", "mode": "REQUIRED", "description": "Logical date of this snapshot"},
+  {"name": "is_free", "type":"BOOLEAN", "mode": "NULLABLE", "description": "Whether the game is free-to-play"},
+  {"name": "initial_price", "type": "INTEGER", "mode": "NULLABLE", "description": "List price in minor units (satang/cents)"},
+  {"name": "final_price", "type": "INTEGER", "mode": "NULLABLE", "description": "Current price after discount, minor units (satang/cents)"},
+  {"name": "discount_percent", "type": "INTEGER", "mode": "NULLABLE", "description": "Discount percentage, 0-100"},
+  {"name": "currency", "type": "STRING", "mode": "NULLABLE", "description": "Currency code from API (THB/USD)"},
+  {"name": "api_success", "type":"BOOLEAN", "mode": "REQUIRED", "description": "Whether the Steam API call succeeded"},
+  {"name": "ingested_at", "type":"TIMESTAMP", "mode": "REQUIRED", "description": "Physical time the row was written (UTC)"}
+]
+
