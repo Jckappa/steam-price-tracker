@@ -5,3 +5,5 @@ requests==2.34.2
 python-dotenv==1.2.2
 
 google-cloud-bigquery==3.42.2
+
+dbt-bigquery==1.11.3
