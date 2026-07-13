@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: steam_prices         
+    database: steam-price-tracker-01   
+    schema: steam_prices        
+    tables:
+      - name: raw_price_snapshots
