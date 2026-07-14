@@ -16,3 +16,11 @@ __pycache__/
 
 # Local data outputs
 data/
+
+# dbt artifacts
+target/
+dbt_packages/
+logs/
+steam_dbt/target/
+steam_dbt/dbt_packages/
+steam_dbt/logs/
