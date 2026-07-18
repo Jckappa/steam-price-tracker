@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: mart_price_history
+    description: "Price snapshots joined with game categories, successful rows only."
+    columns:
+      - name: steam_appid
+        tests:
+          - not_null
+      - name: country_code
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['th', 'us']
+      - name: snapshot_date
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - accepted_values:
+              values: ['personal', 'trending']

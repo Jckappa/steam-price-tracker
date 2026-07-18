@@ -31,6 +31,12 @@ select
 
     initial_price as initial_price_minor,
     final_price   as final_price_minor,
+    
+    concat(
+        cast(steam_appid as string), '|',
+        country_code, '|',
+        cast(snapshot_date as string)
+    ) as snapshot_key,
 
     cast(initial_price as numeric) / 100 as list_price,
     cast(final_price   as numeric) / 100 as sale_price,

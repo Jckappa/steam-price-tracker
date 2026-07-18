@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_price_snapshots
+    description: "Deduplicated price snapshots, one row per game/country/day."
+    columns:
+      - name: snapshot_key
+        description: "Surrogate key of the dedupe grain. Must be unique."
+        tests:
+          - unique
+          - not_null
+      - name: steam_appid
+        tests:
+          - not_null
+      - name: country_code
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['th', 'us']
+      - name: snapshot_date
+        tests:
+          - not_null
+      - name: api_success
+        tests:
+          - not_null
+      - name: ingested_at
+        tests:
+          - not_null
