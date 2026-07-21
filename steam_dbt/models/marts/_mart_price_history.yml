@@ -11,11 +11,13 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['th', 'us']
+              arguments:
+                values: ['th', 'us']
       - name: snapshot_date
         tests:
           - not_null
       - name: category
         tests:
           - accepted_values:
-              values: ['personal', 'trending']
+              arguments:
+                values: ['personal', 'trending']
