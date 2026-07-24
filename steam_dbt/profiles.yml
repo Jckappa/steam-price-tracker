@@ -1,0 +1,12 @@
+steam_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: steam-price-tracker-01
+      dataset: dbt_steam
+      location: asia-southeast1
+      threads: 4
+      job_execution_timeout_seconds: 300
+      job_retries: 1
