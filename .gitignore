@@ -24,3 +24,8 @@ logs/
 steam_dbt/target/
 steam_dbt/dbt_packages/
 steam_dbt/logs/
+
+# Astro / Airflow local
+airflow/.astro/
+airflow/logs/
+airflow/airflow_settings.yaml

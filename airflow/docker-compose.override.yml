@@ -1,0 +1,14 @@
+services:
+  scheduler:
+    volumes:
+      - ../src:/usr/local/airflow/project/src:rw
+      - ../steam_dbt:/usr/local/airflow/project/steam_dbt:rw
+      - ../config:/usr/local/airflow/project/config:rw
+      - ../data:/usr/local/airflow/project/data:rw
+      - /c/Users/jayza/AppData/Roaming/gcloud:/home/astro/.config/gcloud:ro
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /home/astro/.config/gcloud/application_default_credentials.json
+      GCP_PROJECT_ID: steam-price-tracker-01
+      GOOGLE_CLOUD_PROJECT: steam-price-tracker-01
+      BQ_DATASET: steam_prices
+      DBT_PROFILES_DIR: /usr/local/airflow/project/steam_dbt
