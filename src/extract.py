@@ -2,7 +2,8 @@ import csv
 import json
 import os
 import time
-from datetime import datetime, timezone
+import sys
+from datetime import datetime, timezone, date
 
 import requests
 
@@ -163,8 +164,11 @@ def main():
     # Freeze time ONCE, outside the loop, so every row in this batch shares the
     # same snapshot_date even if the run crosses midnight.
     ingested_at = datetime.now(timezone.utc)
-    snapshot_date = ingested_at.date()
 
+    if len(sys.argv) > 1:
+        snapshot_date = date.fromisoformat(sys.argv[1])
+    else:
+        snapshot_date = ingested_at.date()
     games = load_games(GAMES_CSV)
     print(f"Loaded {len(games)} games from {GAMES_CSV}")
 
