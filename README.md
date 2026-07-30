@@ -4,21 +4,25 @@ An automated **ELT pipeline** that builds daily price history for Steam games �
 
 Steam exposes only the *current* price of a game; it has no price-history endpoint. This pipeline creates that historical dataset itself by capturing a snapshot every day.
 
-```
-┌─────────────┐   ┌───────────┐   ┌──────────┐   ┌────────────────────┐
-│  Steam API  │──▶│ extract.py│──▶│  JSONL   │──▶│  BigQuery (raw)     │
-│ (Storefront)│   │  (Python) │   │  (local) │   │  append-only        │
-└─────────────┘   └───────────┘   └──────────┘   └─────────┬──────────┘
-                                                            │
-                                                            ▼
-                                            ┌──────────────────────────────┐
-                                            │  dbt                          │
-                                            │  staging → marts + 13 tests   │
-                                            │  (dedupe, unit conversion)    │
-                                            └──────────────┬───────────────┘
-                                                           │
-        Apache Airflow (Astro CLI) orchestrates daily:     ▼
-        extract ▶ load ▶ dbt run ▶ dbt test
+```mermaid
+flowchart LR
+    subgraph Extract["Daily Extract"]
+        A[Steam Storefront API] --> B["extract.py<br/>(Python)"]
+        B --> C["JSONL<br/>(local, dated)"]
+    end
+
+    C --> D["BigQuery raw<br/>append-only"]
+
+    subgraph Transform["dbt"]
+        E["staging<br/>dedupe + unit conversion"] --> F["marts<br/>+ 13 data tests"]
+    end
+
+    D --> E
+
+    G["Airflow (Astro CLI)<br/>extract ▶ load ▶ dbt run ▶ dbt test"]
+    G -.orchestrates daily.-> Extract
+    G -.-> D
+    G -.-> Transform
 ```
 
 ---
