@@ -5,7 +5,6 @@ import requests
 # ============================================================
 # Section 1: Constants
 # ============================================================
-# UPPER_CASE is the Python convention for values that never change at runtime.
 CHART_URL = "https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/"
 DETAIL_URL = "https://store.steampowered.com/api/appdetails"
 
