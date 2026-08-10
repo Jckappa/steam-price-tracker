@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate dbt models and Airflow DAGs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run: pip install dbt-bigquery==1.11.3
+
+      # Compile-check all models without connecting to BigQuery
+      - name: dbt parse
+        working-directory: steam_dbt
+        run: dbt parse
+        env:
+          DBT_PROFILES_DIR: ci
+
+      - name: Install Airflow for DAG validation
+        run: pip install "apache-airflow==3.0.0" "apache-airflow-providers-standard"
+
+      # Fail the build if any DAG file can't be imported
+      - name: Validate DAG imports
+        run: |
+          python - <<'PY'
+          import importlib.util, pathlib, sys
+
+          failed = False
+          for f in pathlib.Path("airflow/dags").glob("*.py"):
+              spec = importlib.util.spec_from_file_location(f.stem, f)
+              mod = importlib.util.module_from_spec(spec)
+              try:
+                  spec.loader.exec_module(mod)
+                  print(f"OK   {f.name}")
+              except Exception as e:
+                  print(f"FAIL {f.name}: {e}")
+                  failed = True
+          sys.exit(1 if failed else 0)
+          PY
